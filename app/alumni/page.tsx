@@ -27,18 +27,20 @@ const Page = () => {
     useEffect(() => {
         if (status === "loading") return; // Do nothing while loading
         if (!session) {
-          router.push('/')
+            router.push('/')
         }
-       
+
     }, [status, session, router]);
 
     if (status === "loading") {
-        return <LoadingSpinner/>;
+        return <LoadingSpinner />;
     }
 
     const handleEditClick = () => {
         router.push('/alumni/alumniDetails');
     };
+
+    
 
 
     const handleSignOut = async () => {
@@ -53,13 +55,13 @@ const Page = () => {
     return (
         <div id='profileAlumni' className='bg-[#001E80] min-h-screen flex flex-col items-center justify-center py-12'>
             {/* Card for Profile Information */}
-            <Card className='w-[80vw] max-w-3xl p-6 bg-white rounded-2xl shadow-md mb-6'>
-                <div className="flex items-center ">
+            <Card className='min-w-3/4 max-w-3xl min-h-[600px] p-6 bg-white rounded-2xl shadow-md mb-6'>
+                <div className="flex items-end ">
                     {/* Profile Image */}
-                    <Image src={session?.user?.image || '/Blank-PP.png'} alt='Profile Image' width={100} height={100} className='rounded-full' />
-                    <div className="ml-6">
-                        <h1 className='text-3xl font-semibold text-[#333]'>Hi, {session?.user?.name}</h1>
-                        <p className='text-slate-500'>{session?.user?.email}</p>
+                    <Image src={session?.user?.image || '/Blank-PP.png'} alt='Profile Image' width={200} height={200} className='rounded-3xl' />
+                    <div className="ml-6 p-">
+                        <h1 className='text-4xl font-semibold text-[#333]'>Hi, {session?.user?.name}</h1>
+                        <p className='text-2xl text-slate-500'>{session?.user?.email}</p>
 
                     </div>
                 </div>
@@ -74,11 +76,18 @@ const Page = () => {
                     <label htmlFor="status" className="block text-sm font-medium text-gray-600">Status</label>
                     <Input id="status" type="text" disabled placeholder='Study' />
                 </div>
+                <div className="">
+                    <label htmlFor="status" className="block text-sm font-medium text-gray-600">Status</label>
+                    <Input id="status" type="text" disabled placeholder='Study' />
+                </div>
+                <div className="">
+                    <label htmlFor="status" className="block text-sm font-medium text-gray-600">Status</label>
+                    <Input id="status" type="text" disabled placeholder='Study' />
+                </div>
 
                 {/* Buttons */}
                 <div className="flex gap-4 justify-end">
                     <Button onClick={handleEditClick} className='bg-yellow-500 hover:bg-yellow-600 text-white'>Edit Data</Button>
-                    <Button className='bg-green-500 hover:bg-green-600 text-white'>See Review</Button>
                     <Button
                         onClick={handleSignOut}
                         className='bg-red-500 hover:bg-red-600 text-white'>Logout</Button>
@@ -86,7 +95,7 @@ const Page = () => {
             </Card>
 
             {/* Cards below profile */}
-            <div className="flex gap-4 w-full max-w-3xl">
+            <div className="flex gap-4 w-full min-w-3/4 max-w-3xl">
                 <Card className='w-1/3 p-4'>
                     <h3 className='text-lg font-semibold'>Card 1</h3>
                     <p>Additional Information here</p>

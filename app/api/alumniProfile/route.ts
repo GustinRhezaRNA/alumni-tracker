@@ -6,7 +6,6 @@ import { alumniProfiles, users } from '@/database/schema'; // Pastikan path bena
 
 export async function POST(req: Request) {
     try {
-        // Ambil data userEmail dari request body
         const { userEmail } = await req.json(); 
 
         if (!userEmail) {

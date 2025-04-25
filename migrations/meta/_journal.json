@@ -22,6 +22,27 @@
       "when": 1743736636424,
       "tag": "0002_nifty_dazzler",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1744736058992,
+      "tag": "0003_adorable_the_renegades",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1745474288309,
+      "tag": "0004_bumpy_eddie_brock",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1745474515183,
+      "tag": "0005_shallow_omega_flight",
+      "breakpoints": true
     }
   ]
 }

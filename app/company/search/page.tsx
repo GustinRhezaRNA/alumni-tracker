@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import RatingForm from "@/components/RatingForm"; // import form rating
+import RatingForm from "@/components/RatingForm"; 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const AlumniPage = () => {
@@ -96,11 +96,13 @@ const AlumniPage = () => {
 
       {/* Modal Review */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent  className="md:min-w-[900px] overflow-y-auto max-h-[80vh] p-2">
+          <div className="">
           <DialogHeader>
             <DialogTitle>Review for Alumni</DialogTitle>
           </DialogHeader>
           <RatingForm alumniId={selectedAlumniId} onSubmitSuccess={() => setShowModal(false)} />
+          </div>
         </DialogContent>
       </Dialog>
     </div>

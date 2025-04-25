@@ -49,11 +49,15 @@ const Page = () => {
         }
     };
 
+    const handleSearchClick = () => {
+        router.push('/company/search'); // Redirect to the search page
+    }
+
 
     return (
         <div id='profileAlumni' className='bg-[#001E80] min-h-screen flex flex-col items-center justify-center py-12'>
             {/* Card for Profile Information */}
-            <Card className='w-[80vw] max-w-3xl p-6 bg-white rounded-2xl shadow-md mb-6'>
+            <Card className='min-w-8/12 max-w-3xl p-6 bg-white rounded-2xl shadow-md mb-6'>
                 <div className="flex items-center ">
                     {/* Profile Image */}
                     <Image src={session?.user?.image || '/Blank-PP.png'} alt='Profile Image' width={100} height={100} className='rounded-full' />
@@ -65,17 +69,15 @@ const Page = () => {
                 </div>
 
                 {/* Form Inputs */}
-                <div className="">
+                <div className=""> 
                     <label htmlFor="industry" className="block text-sm font-medium text-gray-600">Industry</label>
                     <Input id="industry" type="text" disabled placeholder='Manufacture' />
-                </div>
-
-               
+                </div>          
 
                 {/* Buttons */}
                 <div className="flex gap-4 justify-end">
                     <Button onClick={handleEditClick} className='bg-blue-500 hover:bg-blue-600 text-white'>Edit Data</Button>
-                    <Button onClick={redirect('company/search')} className='bg-yellow-500 hover:bg-yellow-600 text-white'>Search Alumni</Button>
+                    <Button onClick={handleSearchClick} className='bg-yellow-500 hover:bg-yellow-600 text-white'>Search Alumni</Button>
                     <Button className='bg-green-500 hover:bg-green-600 text-white'>See Review</Button>
                     <Button
                         onClick={handleSignOut}
@@ -84,7 +86,7 @@ const Page = () => {
             </Card>
 
             {/* Cards below profile */}
-            <div className="flex gap-4 w-full max-w-3xl">
+            <div className="flex gap-4 min-w-8/12 max-w-3xl">
                 <Card className='w-1/3 p-4'>
                     <h3 className='text-lg font-semibold'>Card 1</h3>
                     <p>Additional Information here</p>

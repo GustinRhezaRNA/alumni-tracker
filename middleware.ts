@@ -10,21 +10,21 @@ export async function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const pathname = url.pathname;
 
-  // ⛔ Jika belum login, redirect ke sign-in
+ 
   if (!token) {
     return NextResponse.redirect(new URL("/sign-in", req.url));
   }
 
   const role = token.role;
 
-  // 🔐 ROLE: ALUMNI
+
   if (role === "ALUMNI") {
     if (!pathname.startsWith("/alumni")) {
       return NextResponse.redirect(new URL("/alumni", req.url));
     }
   }
 
-  // 🔐 ROLE: COMPANY
+
   if (role === "COMPANY") {
     if (!pathname.startsWith("/company")) {
       return NextResponse.redirect(new URL("/company", req.url));
@@ -35,7 +35,6 @@ export async function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// 🎯 Middleware hanya aktif di route ini
 export const config = {
   matcher: ["/alumni/:path*", "/company/:path*"],
 };

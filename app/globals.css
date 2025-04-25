@@ -7,7 +7,7 @@ header {
   font-family: var(--font-montserrat);
 }
 
-#about, #login, #onboarding, #profileAlumni,#search {
+#about, #login, #onboarding, #profileAlumni,#search,#alumniRiview {
   font-family: var(--font-poppins);
 }
 
