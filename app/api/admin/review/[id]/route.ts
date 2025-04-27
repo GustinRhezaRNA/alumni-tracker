@@ -127,7 +127,7 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
 // DELETE untuk menghapus alumni berdasarkan ID
 export async function DELETE(request: Request, context: { params: { id: string } }) {
   try {
-    const { id } = context.params;
+    const { id } = await context.params;
 
     // Delete the review details first
     await db

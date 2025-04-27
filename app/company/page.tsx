@@ -40,6 +40,9 @@ const Page = () => {
         router.push('/company/companyDetails'); 
     };
 
+    const handleSeeReview = () => {
+        router.push('/company/reviewed'); 
+    };
 
     const handleSignOut = async () => {
         try {
@@ -78,7 +81,7 @@ const Page = () => {
                 <div className="flex gap-4 justify-end">
                     <Button onClick={handleEditClick} className='bg-blue-500 hover:bg-blue-600 text-white'>Edit Data</Button>
                     <Button onClick={handleSearchClick} className='bg-yellow-500 hover:bg-yellow-600 text-white'>Search Alumni</Button>
-                    <Button className='bg-green-500 hover:bg-green-600 text-white'>See Review</Button>
+                    <Button onClick={handleSeeReview} className='bg-green-500 hover:bg-green-600 text-white'>See Review</Button>
                     <Button
                         onClick={handleSignOut}
                         className='bg-red-500 hover:bg-red-600 text-white'>Logout</Button>
