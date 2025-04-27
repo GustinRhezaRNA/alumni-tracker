@@ -50,6 +50,7 @@ const Sidebar = ({ session }: { session: Session }) => {
         <div className="flex flex-col max-md:hidden">
             <p className='font-semibold text-200 text-white'>{session?.user?.name || 'Rheza RNA'}</p>
             <p className='text-light-500 text-xs text-white'>{session?.user?.email || 'daniel@void.co.id'}</p>
+            
         </div>
       </div>
     </div>

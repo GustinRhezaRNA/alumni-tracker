@@ -21,7 +21,7 @@ export const createUserAndProfile = async (userData: any) => {
     }
 
     // Log the role to ensure it's correct
-    console.log("User Role: ", userData.role);  // Ensure this is ALUMNI or COMPANY
+    console.log("User Role: ", userData.role);  
 
     // Insert into `alumni_profiles` or `companies` based on role
     if (userData.role === "ALUMNI") {

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { redirect } from "next/navigation";
 
 interface Company {
   companies: {
@@ -41,6 +42,11 @@ const CompanyPage = () => {
     fetchCompanies(); // Fetch data when the component is mounted
   }, []);
 
+  // Handle add company action
+  const handelAddCompany = () => {
+    redirect("/admin/company/new"); // Redirect to the add company page
+  };
+
   // Handle delete action
   const handleDelete = async (id: string) => {
     try {
@@ -65,7 +71,7 @@ const CompanyPage = () => {
     <div className="flex-1 p-8">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Company Data</h2>
-        <Button className="bg-[#2bff00] hover:bg-[#25d900] text-black">Add Company</Button>
+        <Button onClick={handelAddCompany} className="bg-[#2bff00] hover:bg-[#25d900] text-black">Add Company</Button>
       </div>
 
       {loading ? (

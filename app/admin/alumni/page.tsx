@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Button} from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 interface Alumni {
   alumni_profiles: {
     id: string;
@@ -26,6 +27,7 @@ interface Alumni {
 const AlumniPage = () => {
   const [alumniList, setAlumniList] = useState<Alumni[]>([]);
   const [loading, setLoading] = useState(true);
+  const Router = useRouter();
 
   // Fetch alumni data from the API
   const fetchAlumni = async () => {
@@ -44,31 +46,43 @@ const AlumniPage = () => {
     fetchAlumni();
   }, []);
 
+  //handle redirect add alumni
+  const handleAddAlumni = () => {
+    Router.push("/admin/alumni/new"); 
+  };
+
   // Handle delete action
   const handleDelete = async (id: string) => {
     try {
-      const response = await fetch(`/api/admin/alumni?id=${id}`, {
+      const response = await fetch(`/api/admin/alumni/${id}`, {
         method: "DELETE",
       });
+  
       if (response.ok) {
-        setAlumniList(alumniList.filter((alumni) => alumni.alumni_profiles.id !== id)); 
+        const result = await response.json(); // Get the response after deletion
+        if (result.message === "Alumni profile deleted successfully") {
+          // Filter out the deleted alumni from the list
+          setAlumniList(alumniList.filter((alumni) => alumni.alumni_profiles.id !== id));
+        }
       }
     } catch (error) {
       console.error("Error deleting alumni:", error);
     }
   };
+  
 
   // Handle update action
   const handleUpdate = (id: string) => {
-    // Implement your update functionality here (e.g., open a modal or navigate to an edit page)
+    Router.push(`/admin/alumni/edit/${id}`);
     console.log("Update alumni with ID:", id);
+    
   };
 
   return (
     <div className="flex-1 p-8">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Alumni Data</h2>
-        <Button className="bg-[#2bff00] hover:bg-[#25d900] text-black">Add Alumni</Button>
+        <Button onClick={handleAddAlumni} className="bg-[#2bff00] hover:bg-[#25d900] text-black">Add Alumni</Button>
       </div>
 
       {loading ? (
@@ -123,5 +137,5 @@ const AlumniPage = () => {
     </div>
   );
 };
-
+  
 export default AlumniPage;

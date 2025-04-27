@@ -22,11 +22,11 @@ export const companies = pgTable("companies", {
     userId: uuid("user_id").references(() => users.id).notNull(), // Menyimpan ID user (relasi ke tabel users)
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
-  });
+});
   
 export const alumniProfiles = pgTable("alumni_profiles", {
     id: uuid("id").primaryKey().defaultRandom().unique(),
-    userId: uuid("user_id").references(() => users.id).notNull().unique(),
+    userId: uuid("user_id").references(() => users.id, { onDelete: 'cascade' }).notNull(), 
     nim: varchar("nim", { length: 20 }).notNull().unique(),
     graduationYear: integer("graduation_year").notNull(),
     faculty: varchar("faculty", { length: 255 }).notNull(),

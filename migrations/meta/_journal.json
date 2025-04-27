@@ -43,6 +43,13 @@
       "when": 1745474515183,
       "tag": "0005_shallow_omega_flight",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1745725128258,
+      "tag": "0006_chief_siren",
+      "breakpoints": true
     }
   ]
 }

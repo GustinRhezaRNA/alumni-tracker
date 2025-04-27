@@ -44,6 +44,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           .where(eq(users.email, user.email))
           .limit(1);
   
+        // console.log("EXISTING USER:", existingUser);
         if (existingUser.length > 0) {
           token.role = existingUser[0].role;
         }
@@ -65,7 +66,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
     
         
-      return `${baseUrl}/alumni`; // default redirect (nanti kita perbaiki pakai middleware kalau mau dinamis)
+      return `${baseUrl}/alumni`;
     }
   },
   

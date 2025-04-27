@@ -5,14 +5,14 @@ import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({ req , secret: process.env.AUTH_SECRET! });
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET! });
 
   const url = req.nextUrl;
   const pathname = url.pathname;
 
- 
+
   if (!token) {
-    return NextResponse.redirect(new URL("/sign-in", req.url));
+    return NextResponse.redirect(new URL("/auth/sign-in", req.url));
   }
 
   const role = token.role;
@@ -31,7 +31,13 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  // ✅ Jika semua cocok, lanjut
+  if (role === "ADMIN") {
+    if (!pathname.startsWith("/admin")) {
+      return NextResponse.redirect(new URL("/admin", req.url));
+    }
+  }
+
+
   return NextResponse.next();
 }
 
