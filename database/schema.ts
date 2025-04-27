@@ -60,7 +60,7 @@ export const reviews = pgTable("reviews", {
 
 export const reviewDetails = pgTable("review_details", {
   id: uuid("id").primaryKey().defaultRandom().unique(),
-  reviewId: uuid("review_id").references(() => reviews.id).notNull(), // Menghubungkan ke tabel reviews
+  reviewId: uuid("review_id").references(() => reviews.id, {onDelete:'cascade'}).notNull(), 
   hardSkillsH1: integer("hard_skills_h1").notNull(), 
   hardSkillsH2: integer("hard_skills_h2").notNull(), 
   hardSkillsH3: integer("hard_skills_h3").notNull(), 

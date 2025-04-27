@@ -5,8 +5,6 @@ import { eq, sql } from "drizzle-orm";
 
 export async function GET() {
     try {
-
-
         const result = await db
             .select()
             .from(reviews)
@@ -25,55 +23,55 @@ export async function GET() {
     }
 }
 
-// export async function POST(request: Request) {
-//   try {
-//     const {
-//       companyId,
-//       alumniId,
-//       rating,
-//       reviewText,
-//       hardSkillsH1,
-//       hardSkillsH2,
-//       hardSkillsH3,
-//       softSkillsS1,
-//       softSkillsS2,
-//       softSkillsS3,
-//       softSkillsS4,
-//       softSkillsS5,
-//       productivityP1,
-//       productivityP2,
-//       productivityP3,
-//     } = await request.json();
+export async function POST(request: Request) {
+  try {
+    const {
+      companyId,
+      alumniId,
+      rating,
+      reviewText,
+      hardSkillsH1,
+      hardSkillsH2,
+      hardSkillsH3,
+      softSkillsS1,
+      softSkillsS2,
+      softSkillsS3,
+      softSkillsS4,
+      softSkillsS5,
+      productivityP1,
+      productivityP2,
+      productivityP3,
+    } = await request.json();
 
-//     // Insert review data into reviews table
-//     const reviewResult = await db.insert(reviews).values({
-//       companyId,
-//       alumniId,
-//       rating,
-//       reviewText,
-//     }).returning({ id: reviews.id }); // Ensure the ID is returned
+    // Insert review data into reviews table
+    const reviewResult = await db.insert(reviews).values({
+      companyId,
+      alumniId,
+      rating,
+      reviewText,
+    }).returning({ id: reviews.id }); // Ensure the ID is returned
 
-//     // Insert review details into review_details table
-//     const reviewDetailsResult = await db.insert(reviewDetails).values({
-//       reviewId: reviewResult[0]?.id, // Safely access the ID of the inserted review
-//       hardSkillsH1,
-//       hardSkillsH2,
-//       hardSkillsH3,
-//       softSkillsS1,
-//       softSkillsS2,
-//       softSkillsS3,
-//       softSkillsS4,
-//       softSkillsS5,
-//       productivityP1,
-//       productivityP2,
-//       productivityP3,
-//     });
+    // Insert review details into review_details table
+    const reviewDetailsResult = await db.insert(reviewDetails).values({
+      reviewId: reviewResult[0]?.id, // Safely access the ID of the inserted review
+      hardSkillsH1,
+      hardSkillsH2,
+      hardSkillsH3,
+      softSkillsS1,
+      softSkillsS2,
+      softSkillsS3,
+      softSkillsS4,
+      softSkillsS5,
+      productivityP1,
+      productivityP2,
+      productivityP3,
+    });
 
-//     return NextResponse.json({ reviewResult, reviewDetailsResult }, { status: 201 });
-//   } catch (error) {
-//     return NextResponse.json({ message: "Error creating review", error }, { status: 500 });
-//   }
-// }
+    return NextResponse.json({ reviewResult, reviewDetailsResult }, { status: 201 });
+  } catch (error) {
+    return NextResponse.json({ message: "Error creating review", error }, { status: 500 });
+  }
+}
 
 // export async function PUT(request: Request) {
 //   try {

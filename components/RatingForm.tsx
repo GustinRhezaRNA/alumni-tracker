@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import { HARD_SKILLS, SOFT_SKILLS, PRODUCTIVITY } from "@/constants/riview";
+import { HARD_SKILLS, SOFT_SKILLS, PRODUCTIVITY } from "@/constants/review";
 import { IoClose } from "react-icons/io5";
 
 interface RatingFormProps {
