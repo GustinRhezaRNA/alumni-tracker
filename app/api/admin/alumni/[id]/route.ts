@@ -35,7 +35,7 @@ export async function PUT(
   context: { params: { id: string } }
 ) {
   try {
-    const { id } = context.params; // Access id properly from context.params
+    const { id } = context.params; 
     const requestData = await request.json();
 
     // Sanitize data

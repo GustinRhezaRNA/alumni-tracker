@@ -19,10 +19,10 @@ export const companies = pgTable("companies", {
     contact: text("contact").notNull().unique(), // Menyesuaikan dengan "Kontak HRD"
     companyDescription: text("company_description"), // Menambahkan deskripsi perusahaan
     hrdContact: text("hrd_contact"), // Menambahkan kontak HRD (email/nama)
-    userId: uuid("user_id").references(() => users.id).notNull(), // Menyimpan ID user (relasi ke tabel users)
+    userId: uuid("user_id").references(() => users.id, {onDelete: 'cascade'}).notNull(), // Menyimpan ID user (relasi ke tabel users)
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
-});
+  });
   
 export const alumniProfiles = pgTable("alumni_profiles", {
     id: uuid("id").primaryKey().defaultRandom().unique(),

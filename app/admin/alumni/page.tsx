@@ -75,7 +75,6 @@ const AlumniPage = () => {
   const handleUpdate = (id: string) => {
     Router.push(`/admin/alumni/edit/${id}`);
     console.log("Update alumni with ID:", id);
-    
   };
 
   return (

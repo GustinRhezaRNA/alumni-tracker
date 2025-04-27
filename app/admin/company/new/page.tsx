@@ -1,144 +1,148 @@
 'use client';
 
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-
-// Define initial form data structure
-const initialFormData = {
-  industry: '',
-  address: '',
-  contact: '',
-  companyDescription: '',
-  hrdContact: '',
-};
+import { companyFields } from "@/constants/roles";
 
 const CompanyPage = () => {
-  const [formData, setFormData] = useState(initialFormData);
-  const router = useRouter();
 
-  // Update formData state when the user interacts with the form
-  const handleInputChange = (e, fieldName) => {
-    setFormData({
-      ...formData,
-      [fieldName]: e.target.value,
-    });
-  };
+    // Define initial form data structure
+    const initialFormData = {
+        fullName: '',
+        email: '',
+        industry: '',
+        address: '',
+        contact: '',
+        companyDescription: '',
+        hrdContact: '',
+    };
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const [formData, setFormData] = useState(initialFormData);
+    const router = useRouter();
 
-    // Send formData to backend API
-    const response = await fetch('/api/admin/companies', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+    const handleInputChange = (e, fieldName) => {
+        setFormData({
+            ...formData,
+            [fieldName]: e.target.value,
+        });
+    };
 
-    if (response.ok) {
-      const result = await response.json();
-      setFormData(initialFormData);  // Reset form data
-      alert('Company added successfully');
-      router.push("/admin/companies");  // Redirect to company list page
-    } else {
-      const error = await response.json();
-      console.error('Error:', error);
-    }
-  };
+    // Handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-  return (
-    <div className="flex-1 overflow-auto">
-      <div className="max-w-4xl mx-auto">
-        {/* Company Data Form */}
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-6">Add New Company</h2>
+        // Send formData to backend API
+        const response = await fetch('/api/admin/company', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+        console.log(formData);
+        if (response.ok) {
+            const result = await response.json();
+            setFormData(initialFormData);  // Reset form data
+            alert('Company added successfully');
+            router.push("/admin/company");  // Redirect to company list page
+        } else {
+            const error = await response.json();
+            console.error('Error:', error);
+        }
+    };
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Fixed Fields for Industry, Address, etc. */}
-            <div>
-              <label htmlFor="industry" className="block text-sm font-medium text-gray-700 mb-1">
-                Industry
-              </label>
-              <input
-                type="text"
-                id="industry"
-                className="w-full p-3 border border-gray-200 rounded-md"
-                placeholder="Enter industry"
-                value={formData.industry}
-                onChange={(e) => handleInputChange(e, 'industry')}
-              />
+    return (
+        <div className="flex-1 overflow-auto">
+            <div className="max-w-4xl mx-auto">
+                {/* Company Data Form */}
+                <div className="mb-6">
+                    <h2 className="text-xl font-semibold mb-6">Add New Company</h2>
+
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* Fixed Fields for Industry, Address, etc. */}
+                        {/* Fixed Fields for Full Name and Email */}
+                        <div>
+                            <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                                Full Name
+                            </label>
+                            <input
+                                type="text"
+                                id="fullName"
+                                className="w-full p-3 border border-gray-200 rounded-md"
+                                placeholder="Masukkan nama lengkap"
+                                value={formData.fullName}
+                                onChange={(e) => handleInputChange(e, 'fullName')}
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                className="w-full p-3 border border-gray-200 rounded-md"
+                                placeholder="Masukkan email"
+                                value={formData.email}
+                                onChange={(e) => handleInputChange(e, 'email')}
+                            />
+                        </div>
+
+                        {/* Dynamic Fields from companyFields */}
+                        {companyFields.map((field, index) => {
+                            // Conditionally render fields based on `jobStatus` and `fundingSource`
+                            if (
+                                (field.condition && field.condition !== formData.jobStatus) ||
+                                (field.dependentCondition && field.dependentCondition !== formData.fundingSource)
+                            ) {
+                                return null; // Skip rendering if conditions are not met
+                            }
+
+                            return (
+                                <div key={index}>
+                                    <label htmlFor={field.fieldName} className="block text-sm font-medium text-gray-700 mb-1">
+                                        {field.label}
+                                    </label>
+
+                                    {field.type === 'select' ? (
+                                        <select
+                                            id={field.fieldName}
+                                            className="w-full p-3 border border-gray-200 rounded-md"
+                                            value={formData[field.fieldName] || ''}
+                                            onChange={(e) => handleInputChange(e, field.fieldName)}
+                                        >
+                                            {field.options.map((option, optionIndex) => (
+                                                <option key={optionIndex} value={option}>
+                                                    {option}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    ) : (
+                                        <input
+                                            type={field.type}
+                                            id={field.fieldName}
+                                            className="w-full p-3 border border-gray-200 rounded-md"
+                                            placeholder={field.placeholder}
+                                            value={formData[field.fieldName] || ''}
+                                            onChange={(e) => handleInputChange(e, field.fieldName)}
+                                        />
+                                    )}
+                                </div>
+                            );
+                        })}
+
+                        <button
+                            type="submit"
+                            className="w-full py-3 px-4 bg-[#0008f1] text-white font-medium rounded-md hover:bg-blue-700 transition-colors"
+                        >
+                            Add Company
+                        </button>
+                    </form>
+                </div>
             </div>
-
-            <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
-                Address
-              </label>
-              <input
-                type="text"
-                id="address"
-                className="w-full p-3 border border-gray-200 rounded-md"
-                placeholder="Enter address"
-                value={formData.address}
-                onChange={(e) => handleInputChange(e, 'address')}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="contact" className="block text-sm font-medium text-gray-700 mb-1">
-                Contact
-              </label>
-              <input
-                type="text"
-                id="contact"
-                className="w-full p-3 border border-gray-200 rounded-md"
-                placeholder="Enter contact information"
-                value={formData.contact}
-                onChange={(e) => handleInputChange(e, 'contact')}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="companyDescription" className="block text-sm font-medium text-gray-700 mb-1">
-                Company Description
-              </label>
-              <textarea
-                id="companyDescription"
-                className="w-full p-3 border border-gray-200 rounded-md"
-                placeholder="Enter company description"
-                value={formData.companyDescription}
-                onChange={(e) => handleInputChange(e, 'companyDescription')}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="hrdContact" className="block text-sm font-medium text-gray-700 mb-1">
-                HRD Contact
-              </label>
-              <input
-                type="text"
-                id="hrdContact"
-                className="w-full p-3 border border-gray-200 rounded-md"
-                placeholder="Enter HRD contact information"
-                value={formData.hrdContact}
-                onChange={(e) => handleInputChange(e, 'hrdContact')}
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full py-3 px-4 bg-[#0008f1] text-white font-medium rounded-md hover:bg-blue-700 transition-colors"
-            >
-              Add Company
-            </button>
-          </form>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default CompanyPage;

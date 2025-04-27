@@ -50,6 +50,13 @@
       "when": 1745725128258,
       "tag": "0006_chief_siren",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1745731815527,
+      "tag": "0007_lyrical_jack_flag",
+      "breakpoints": true
     }
   ]
 }

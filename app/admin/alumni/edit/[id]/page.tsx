@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { alumniFields } from '@/constants/roles'; 
 
-const UpdatePage = () => {
+const UpdateAlumniPage = () => {
   const router = useRouter();
   const params = useParams();
   const { id } = params;
@@ -150,4 +150,4 @@ const UpdatePage = () => {
   );
 };
 
-export default UpdatePage;
+export default UpdateAlumniPage;

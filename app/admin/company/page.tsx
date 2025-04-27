@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { redirect } from "next/navigation";
+import {  useRouter } from "next/navigation";
 
 interface Company {
   companies: {
@@ -24,6 +24,7 @@ interface Company {
 const CompanyPage = () => {
   const [companyList, setCompanyList] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
+  const Router = useRouter();
 
   // Fetch company data from the API
   const fetchCompanies = async () => {
@@ -44,13 +45,13 @@ const CompanyPage = () => {
 
   // Handle add company action
   const handelAddCompany = () => {
-    redirect("/admin/company/new"); // Redirect to the add company page
+    Router.push("/admin/company/new"); // Redirect to the add company page
   };
 
   // Handle delete action
   const handleDelete = async (id: string) => {
     try {
-      const response = await fetch(`/api/admin/companies?id=${id}`, {
+      const response = await fetch(`/api/admin/company/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -63,8 +64,7 @@ const CompanyPage = () => {
 
   // Handle update action
   const handleUpdate = (id: string) => {
-    // Implement your update functionality here (e.g., open a modal or navigate to an edit page)
-    console.log("Update company with ID:", id);
+    Router.push(`/admin/company/edit/${id}`);
   };
 
   return (
@@ -75,7 +75,7 @@ const CompanyPage = () => {
       </div>
 
       {loading ? (
-        <div>Loading...</div> // Show loading state
+        <div>Loading...</div> 
       ) : (
         companyList.map((company) => (
           <Card key={company.companies.id} className="p-6 border rounded-lg mb-4">
