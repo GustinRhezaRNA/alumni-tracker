@@ -56,6 +56,10 @@ const AlumniPage = () => {
 
   return (
     <div id="search" className='bg-[#001E80] min-h-screen flex flex-col items-center justify-center py-12'>
+      <Button onClick={() => router.back()} className="absolute top-6 left-6 bg-white text-[#001E80] hover:bg-gray-100">
+        ← Back
+      </Button>
+
       <h1 className="text-3xl font-semibold text-white mb-6">Alumni Data</h1>
 
       <Card className='w-[80vw] max-w-3xl p-6 bg-white rounded-2xl shadow-md mb-6'>

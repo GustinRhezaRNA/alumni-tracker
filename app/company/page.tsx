@@ -8,6 +8,7 @@ import Image from 'next/image'
 import React, { useEffect } from 'react'
 import { redirect, useRouter } from 'next/navigation'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import BarChart from '@/components/BarChart'
 
 // Extend the User type to include the role property
 declare module 'next-auth' {
@@ -91,8 +92,7 @@ const Page = () => {
             {/* Cards below profile */}
             <div className="flex gap-4 min-w-8/12 max-w-3xl">
                 <Card className='w-1/3 p-4'>
-                    <h3 className='text-lg font-semibold'>Card 1</h3>
-                    <p>Additional Information here</p>
+                    <BarChart/>
                 </Card>
                 <Card className='w-1/3 p-4'>
                     <h3 className='text-lg font-semibold'>Card 2</h3>

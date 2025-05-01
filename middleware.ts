@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
 
 
   if (!token) {
-    return NextResponse.redirect(new URL("/auth/sign-in", req.url));
+    return NextResponse.redirect(new URL("/sign-in", req.url));
   }
 
   const role = token.role;

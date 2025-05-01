@@ -107,15 +107,15 @@ const ReviewsPage = () => {
     <div className="flex-1 p-8">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Review Data</h2>
-        <Button onClick={handleAddReview} className="bg-[#2bff00] hover:bg-[#25d900] text-black">Add Review</Button>
+        <Button onClick={handleAddReview} className="bg-green-500 hover:bg-green-600 text-white">Add Review</Button>
       </div>
 
       {loading ? (
         <div>Loading...</div>
       ) : (
         reviews.map((reviewData) => (
-          <Card key={reviewData.reviews.id} className="p-6 border rounded-lg mb-4">
-            <div className="flex justify-between items-start">
+          <div key={reviewData.reviews.id} className="p-6 rounded-lg mb-4 shadow-md bg-white ">
+            <div className="flex justify-between items-start ">
               <div>
                 {/* Review Information */}
                 <h3 className="text-2xl font-bold mb-4">
@@ -183,20 +183,20 @@ const ReviewsPage = () => {
               {/* Action Buttons */}
               <div className="flex gap-2">
                 <Button
-                  className="bg-[#ffe500] hover:bg-[#e6cf00] text-black"
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white"
                   onClick={() => handleUpdate(reviewData.reviews.id)}
                 >
                   Update
                 </Button>
                 <Button
-                  className="bg-[#ff0000] hover:bg-[#cc0000] text-white"
+                  className="bg-red-500 hover:bg-red-600 text-white"
                   onClick={() => handleDelete(reviewData.reviews.id)}
                 >
                   Delete
                 </Button>
               </div>
             </div>
-          </Card>
+          </div>
         ))
       )}
     </div>

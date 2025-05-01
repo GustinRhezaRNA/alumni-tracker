@@ -71,14 +71,14 @@ const CompanyPage = () => {
     <div className="flex-1 p-8">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Company Data</h2>
-        <Button onClick={handelAddCompany} className="bg-[#2bff00] hover:bg-[#25d900] text-black">Add Company</Button>
+        <Button onClick={handelAddCompany} className="bg-green-500 hover:bg-green-600 text-white">Add Company</Button>
       </div>
 
       {loading ? (
         <div>Loading...</div> 
       ) : (
         companyList.map((company) => (
-          <Card key={company.companies.id} className="p-6 border rounded-lg mb-4">
+          <div key={company.companies.id} className="p-6 rounded-lg mb-4 shadow-md bg-white">
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="text-2xl font-bold mb-4">{company.companies.industry}</h3>
@@ -107,20 +107,20 @@ const CompanyPage = () => {
               </div>
               <div className="flex gap-2">
                 <Button
-                  className="bg-[#ffe500] hover:bg-[#e6cf00] text-black"
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white"
                   onClick={() => handleUpdate(company.companies.id)}
                 >
                   Update
                 </Button>
                 <Button
-                  className="bg-[#ff0000] hover:bg-[#cc0000] text-white"
+                  className="bg-red-500 hover:bg-red-600 text-white"
                   onClick={() => handleDelete(company.companies.id)}
                 >
                   Delete
                 </Button>
               </div>
             </div>
-          </Card>
+          </div>
         ))
       )}
     </div>

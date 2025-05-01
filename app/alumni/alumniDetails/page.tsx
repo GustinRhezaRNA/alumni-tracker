@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import {alumniFields} from "@/constants/field";
+import { alumniFields } from "@/constants/roles";
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 const AlumniDetails = () => {
@@ -76,13 +76,19 @@ const AlumniDetails = () => {
         }));
     };
 
+    // Handle select field change
+    const handleSelectChange = (name: string, value: string) => {
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
     // Handle form submission to update profile
     const handleSubmit = async (e: React.FormEvent) => {
-
-
         e.preventDefault();
-        const submitData = { userEmail: session?.user?.email ,...formData};
-        console.log('Form submitted:' , submitData);
+        const submitData = { userEmail: session?.user?.email, ...formData };
+        console.log('Form submitted:', submitData);
 
         const response = await fetch('/api/alumniProfile', {
             method: 'PUT',
@@ -93,15 +99,17 @@ const AlumniDetails = () => {
         });
 
         const data = await response.json();
-    
 
         if (response.ok) {
             alert('Profile updated successfully!');
-            router.push('/alumni');  
+            router.push('/alumni');
         } else {
             alert('Failed to update profile: ' + data.message);
         }
     };
+
+    // Log formData for debugging purposes
+    console.log(formData);
 
     if (loading) return <LoadingSpinner />;
 
@@ -110,17 +118,43 @@ const AlumniDetails = () => {
             <Card className='w-[80vw] max-w-3xl p-6 bg-white rounded-2xl shadow-md mb-6'>
                 <h1 className='text-3xl font-semibold text-[#333]'>Alumni Profile</h1>
 
-                {alumniFields.map((field) => (
-                    <div key={field.name} className="mt-4">
-                        <label htmlFor={field.name} className="block text-sm font-medium text-gray-600">{field.label}:</label>
-                        <Input
-                            type="text"
-                            name={field.name}
-                            value={formData[field.name] || ""}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                ))}
+                {alumniFields.map((field) => {
+                    // Debugging: Check field condition
+                    console.log(`Checking condition for ${field.fieldName}:`, formData[field.condition]);
+
+                    // Check if condition is met for this field
+                    if (field.condition && formData[field.condition] !== field.condition) {
+                        console.log(`Skipping field ${field.fieldName} because condition is not met`);
+                        return null; // Skip rendering if condition is not met
+                    }
+
+                    return (
+                        <div key={field.fieldName} className="mt-4">
+                            <label htmlFor={field.fieldName} className="block text-sm font-medium text-gray-600">{field.label}:</label>
+                            {field.type === "select" ? (
+                                <select
+                                    name={field.fieldName}
+                                    value={formData[field.fieldName] || ""}
+                                    onChange={(e) => handleSelectChange(field.fieldName, e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                >
+                                    {field.options?.map((option, index) => (
+                                        <option key={index} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <Input
+                                    type={field.type || "text"}
+                                    name={field.fieldName}
+                                    value={formData[field.fieldName] || ""}
+                                    onChange={handleInputChange}
+                                    placeholder={field.placeholder || ""}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                />
+                            )}
+                        </div>
+                    );
+                })}
 
                 <div className="flex gap-4 justify-end mt-4">
                     <Button onClick={handleSubmit} className='bg-blue-500 hover:bg-blue-600 text-white'>

@@ -16,7 +16,7 @@
     width: calc(100% - 264px);
     flex: 1;
     flex-direction: column;
-    background-color: #f3f4f6;
+    background-color: #f6efef;
     padding: 1.25rem;
   }
 
@@ -327,14 +327,15 @@
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
-    border-bottom: 1px dashed rgba(99, 102, 241, 0.2);
-    padding-bottom: 2.5rem;
+    border-bottom: 1px dashed rgba(219, 219, 227, 0.5);
+    padding-bottom: 1.5rem;
   }
 
   .admin-sidebar .logo h1 {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     color: white;
+    font-family: 'Poppins', sans-serif;
   }
 
   .admin-sidebar .link {

@@ -81,14 +81,14 @@ const AlumniPage = () => {
     <div className="flex-1 p-8">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Alumni Data</h2>
-        <Button onClick={handleAddAlumni} className="bg-[#2bff00] hover:bg-[#25d900] text-black">Add Alumni</Button>
+        <Button onClick={handleAddAlumni} className="bg-green-500 hover:bg-green-600 text-white">Add Alumni</Button>
       </div>
 
       {loading ? (
         <div>Loading...</div> 
       ) : (
         alumniList.map((alumni) => (
-          <Card key={alumni.alumni_profiles.id} className="p-6 border rounded-lg mb-4">
+          <div key={alumni.alumni_profiles.id} className="p-4 rounded-lg mb-4 shadow-md bg-white">
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="text-2xl font-bold mb-4">{alumni.users.fullName}</h3>
@@ -117,20 +117,20 @@ const AlumniPage = () => {
               </div>
               <div className="flex gap-2">
                 <Button
-                  className="bg-[#ffe500] hover:bg-[#e6cf00] text-black"
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white"
                   onClick={() => handleUpdate(alumni.alumni_profiles.id)}
                 >
                   Update
                 </Button>
                 <Button
-                  className="bg-[#ff0000] hover:bg-[#cc0000] text-white"
+                  className="bg-red-500 hover:bg-red-600 text-white"
                   onClick={() => handleDelete(alumni.alumni_profiles.id)}
                 >
                   Delete
                 </Button>
               </div>
             </div>
-          </Card>
+          </div>
         ))
       )}
     </div>
