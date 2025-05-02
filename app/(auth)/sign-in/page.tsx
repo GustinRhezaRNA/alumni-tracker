@@ -5,8 +5,10 @@ import { signIn } from 'next-auth/react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
+import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
+  const router = useRouter();
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -14,6 +16,9 @@ const LoginPage = () => {
     <div
       id='login'
       className="flex items-center justify-center min-h-screen bg-[url('/assets/login-bg.png')] bg-cover bg-center">
+      <Button onClick={() => router.back()} className="absolute top-6 left-6 bg-white text-[#001E80] hover:bg-gray-100">
+        ← Back
+      </Button>
       <Card className="w-full max-w-md p-6 bg-white rounded-2xl shadow-md">
         <h2 className="text-2xl font-semibold text-center ">Sign in to Your Account</h2>
         {errorMessage && (
@@ -22,7 +27,7 @@ const LoginPage = () => {
         <CardContent>
           <form
             action={async () => {
-              await signIn("google", )
+              await signIn("google",)
             }}
           >
             <Button type="submit"
