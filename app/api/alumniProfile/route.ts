@@ -44,12 +44,11 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
     try {
-        // Ambil data dari request body sekali saja
+        // Ambil data dari request body
         const {
-            userEmail   ,
+            userEmail,
             nim,
             graduationYear,
-            faculty,
             major,
             phone,
             address,
@@ -57,11 +56,17 @@ export async function PUT(req: Request) {
             universityName,
             studyProgram,
             fundingSource,
-            scholarshipSource
+            scholarshipSource,
+            currentCompany,
+            jobPosition,
+            jobWaitTime,
+            firstSalary,
+            jobMatchWithMajor,
+            curriculumFeedback
         } = await req.json();
 
         // Validasi input
-        if (!userEmail || !nim || !graduationYear || !faculty || !major || !phone || !address || !jobStatus || !universityName || !studyProgram) {
+        if (!userEmail || !nim || !graduationYear || !major || !phone || !address || !jobStatus) {
             return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
         }
 
@@ -76,22 +81,55 @@ export async function PUT(req: Request) {
             return NextResponse.json({ message: 'User not found' }, { status: 404 });
         }
 
+        // Tentukan nilai untuk field terkait berdasarkan status pekerjaan
+        let updatedData = {
+            nim,
+            graduationYear,
+        
+            major,
+            phone,
+            address,
+            jobStatus,
+            universityName,
+            studyProgram,
+            fundingSource,
+            scholarshipSource,
+            currentCompany: jobStatus === "Bekerja" ? currentCompany : null, // Set null if not applicable
+            jobPosition: jobStatus === "Bekerja" ? jobPosition : null,
+            jobWaitTime: jobStatus === "Bekerja" ? jobWaitTime : null,  // Set null if not applicable
+            firstSalary: jobStatus === "Bekerja" ? firstSalary : null, // Set null if not applicable
+            jobMatchWithMajor: jobStatus === "Bekerja" ? jobMatchWithMajor : 0, // Default to 0 if not applicable
+            curriculumFeedback
+        };
+
+        // Jika status pekerjaan bukan 'Bekerja', kosongkan field terkait pekerjaan
+        if (jobStatus === "Tidak Bekerja") {
+            updatedData = {
+                ...updatedData,
+                currentCompany: '',
+                jobPosition: '',
+                jobWaitTime: null, // Set null for empty field
+                firstSalary: null, 
+                jobMatchWithMajor: 0, // Default to 0
+                curriculumFeedback: ''
+            };
+        }
+
+        // Jika status pekerjaan adalah 'Bekerja', hapus field yang terkait dengan 'Studi'
+        if (jobStatus === 'Bekerja') {
+            updatedData = {
+                ...updatedData, 
+                universityName: '',
+                studyProgram: '',
+                fundingSource: '',
+                scholarshipSource: ''
+            };
+        }
+
         // Update profil berdasarkan userId
         const updatedProfile = await db
             .update(alumniProfiles)
-            .set({
-                nim,
-                graduationYear,
-                faculty,
-                major,
-                phone,
-                address,
-                jobStatus,
-                universityName,
-                studyProgram,
-                fundingSource,
-                scholarshipSource,
-            })
+            .set(updatedData)
             .where(eq(alumniProfiles.userId, user[0].id));
 
         // Periksa apakah ada baris yang diupdate

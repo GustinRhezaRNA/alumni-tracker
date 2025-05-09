@@ -16,7 +16,7 @@ const LoginPage = () => {
     <div
       id='login'
       className="flex items-center justify-center min-h-screen bg-[url('/assets/login-bg.png')] bg-cover bg-center">
-      <Button onClick={() => router.back()} className="absolute top-6 left-6 bg-white text-[#001E80] hover:bg-gray-100">
+      <Button onClick={() => router.push('/')} className="absolute top-6 left-6 bg-white text-[#001E80] hover:bg-gray-100">
         ← Back
       </Button>
       <Card className="w-full max-w-md p-6 bg-white rounded-2xl shadow-md">

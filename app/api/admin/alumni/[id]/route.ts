@@ -42,7 +42,7 @@ export async function PUT(
     const sanitizedData = {
       nim: requestData.nim || null,
       graduationYear: requestData.graduationYear || null,
-      faculty: requestData.faculty || null,
+
       major: requestData.major || null,
       phone: requestData.phone || null,
       address: requestData.address || null,

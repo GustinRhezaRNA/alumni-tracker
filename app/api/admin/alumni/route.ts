@@ -27,7 +27,6 @@ export async function POST(request: Request) {
       email,
       phone,
       address,
-      faculty,
       major,
       jobStatus,
       currentCompany,
@@ -50,7 +49,7 @@ export async function POST(request: Request) {
       email,
       phone,
       address,
-      faculty,
+    
       major,
       jobStatus,
       currentCompany: currentCompany || null,
@@ -107,7 +106,7 @@ export async function POST(request: Request) {
         userId: userId,
         nim: sanitizedData.nim, // Maps to nim
         graduationYear: sanitizedData.graduationYear, // Maps to graduationYear
-        faculty: sanitizedData.faculty, // Maps to faculty
+      
         major: sanitizedData.major, // Maps to major
         phone: sanitizedData.phone, // Maps to phone
         address: sanitizedData.address, // Maps to address

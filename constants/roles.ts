@@ -2,7 +2,6 @@ export const alumniFields = [
     { label: "NIM", placeholder: "Masukkan NIM", type: "text", fieldName: "nim" }, // Maps to nim in alumniProfiles
     { label: "No. HP", placeholder: "Masukkan nomor HP", type: "tel", fieldName: "phone" }, // Maps to phone in alumniProfiles
     { label: "Jurusan", placeholder: "Masukkan jurusan", type: "text", fieldName: "major" }, // Maps to major in alumniProfiles
-    { label: "Fakultas", placeholder: "Masukkan fakultas", type: "text", fieldName: "faculty" }, // Maps to faculty in alumniProfiles
     { label: "Tahun Lulus", placeholder: "Masukkan tahun lulus", type: "number", fieldName: "graduationYear" }, // Maps to graduationYear
     { label: "Alamat", placeholder: "Masukkan alamat lengkap", type: "text", fieldName: "address" }, // Maps to address in alumniProfiles
     {

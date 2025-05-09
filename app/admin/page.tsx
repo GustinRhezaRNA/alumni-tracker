@@ -41,7 +41,6 @@ type StatisticsData = {
   totalReviews: number;
   averageRating: number;
   alumniByYear: { graduationYear: string; count: number }[];
-  alumniByFaculty: { faculty: string; count: number }[];
   alumniByMajor: { major: string; count: number }[];
   jobStatusStats: { jobStatus: string; count: number }[];
   jobWaitTimeStats: { jobWaitTime: string; count: number }[];
@@ -116,27 +115,27 @@ const StatisticsPage = () => {
     }],
   };
 
-  const alumniByFacultyData = {
-    labels: statistics.alumniByFaculty.map(item => item.faculty),
-    datasets: [{
-      data: statistics.alumniByFaculty.map(item => item.count),
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.6)',
-        'rgba(54, 162, 235, 0.6)',
-        'rgba(255, 206, 86, 0.6)',
-        'rgba(75, 192, 192, 0.6)',
-        'rgba(153, 102, 255, 0.6)',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-      ],
-      borderWidth: 1,
-    }],
-  };
+  // const alumniByFacultyData = {
+  //   labels: statistics.alumniByFaculty.map(item => item.faculty),
+  //   datasets: [{
+  //     data: statistics.alumniByFaculty.map(item => item.count),
+  //     backgroundColor: [
+  //       'rgba(255, 99, 132, 0.6)',
+  //       'rgba(54, 162, 235, 0.6)',
+  //       'rgba(255, 206, 86, 0.6)',
+  //       'rgba(75, 192, 192, 0.6)',
+  //       'rgba(153, 102, 255, 0.6)',
+  //     ],
+  //     borderColor: [
+  //       'rgba(255, 99, 132, 1)',
+  //       'rgba(54, 162, 235, 1)',
+  //       'rgba(255, 206, 86, 1)',
+  //       'rgba(75, 192, 192, 1)',
+  //       'rgba(153, 102, 255, 1)',
+  //     ],
+  //     borderWidth: 1,
+  //   }],
+  // };
 
   const jobStatusData = {
     labels: statistics.jobStatusStats.map(item => item.jobStatus),
@@ -232,7 +231,7 @@ const StatisticsPage = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        {/* <Card>
           <CardHeader>
             <CardTitle>Alumni by Faculty</CardTitle>
           </CardHeader>
@@ -247,7 +246,7 @@ const StatisticsPage = () => {
               />
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
 
       {/* Job Status Section */}

@@ -12,7 +12,6 @@ const Page = () => {
     nim: '',
     phone: '',
     address: '',
-    faculty: '',
     major: '',
     jobStatus: '',
     currentCompany: '',

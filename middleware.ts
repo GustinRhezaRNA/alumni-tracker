@@ -5,17 +5,19 @@ import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.AUTH_SECRET! });
-
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET! })
   const url = req.nextUrl;
   const pathname = url.pathname;
 
 
   if (!token) {
-    return NextResponse.redirect(new URL("/sign-in", req.url));
+    console.error("Token not found");
+    // return NextResponse.redirect(new URL("/", req.url));
+    console.log("Token not found, redirecting to login page");
   }
-
-  const role = token.role;
+  
+  // console.log("Token found: ", token);
+  const role = token?.role;
 
 
   if (role === "ALUMNI") {
@@ -42,5 +44,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/alumni/:path*", "/company/:path*"],
+  matcher: ["/alumni/:path*", "/company/:path*" , "/admin/:path*"],
 };

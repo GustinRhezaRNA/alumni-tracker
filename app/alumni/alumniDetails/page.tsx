@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 'use client'
 
 import { useState, useEffect } from 'react';
@@ -48,7 +48,6 @@ const AlumniDetails = () => {
             setFormData({
                 nim: profileData.nim,
                 graduationYear: profileData.graduationYear,
-                faculty: profileData.faculty,
                 major: profileData.major,
                 phone: profileData.phone,
                 address: profileData.address,
@@ -119,12 +118,11 @@ const AlumniDetails = () => {
                 <h1 className='text-3xl font-semibold text-[#333]'>Alumni Profile</h1>
 
                 {alumniFields.map((field) => {
-                    // Debugging: Check field condition
-                    console.log(`Checking condition for ${field.fieldName}:`, formData[field.condition]);
-
                     // Check if condition is met for this field
-                    if (field.condition && formData[field.condition] !== field.condition) {
-                        console.log(`Skipping field ${field.fieldName} because condition is not met`);
+                    if (
+                        (field.condition && field.condition !== formData.jobStatus) ||
+                        (field.dependentCondition && field.dependentCondition !== formData.fundingSource)
+                    ) {
                         return null; // Skip rendering if condition is not met
                     }
 

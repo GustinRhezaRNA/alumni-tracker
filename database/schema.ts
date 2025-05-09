@@ -29,15 +29,14 @@ export const alumniProfiles = pgTable("alumni_profiles", {
     userId: uuid("user_id").references(() => users.id, { onDelete: 'cascade' }).notNull(), 
     nim: varchar("nim", { length: 20 }).notNull().unique(),
     graduationYear: integer("graduation_year").notNull(),
-    faculty: varchar("faculty", { length: 255 }).notNull(),
     major: varchar("major", { length: 255 }).notNull(),
     phone: varchar("phone", { length: 15 }).notNull(),
     address: text("address").notNull(),
     jobStatus: text("job_status").notNull(), 
     currentCompany: text("current_company"),
     jobPosition: text("job_position"), 
-    jobWaitTime: varchar("job_wait_time", { length: 20 }), // Waktu tunggu pekerjaan pertama
-    firstSalary: varchar("first_salary", { length: 20 }), // Gaji pertama
+    jobWaitTime: varchar("job_wait_time", { length: 255 }), // Waktu tunggu pekerjaan pertama
+    firstSalary: varchar("first_salary", { length: 255 }), // Gaji pertama
     jobMatchWithMajor: integer("job_match_with_major"), // Skala kesesuaian pekerjaan dengan prodi
     curriculumFeedback: text("curriculum_feedback"), // Saran terkait kurikulum dan sarana prasarana
     universityName: varchar("university_name", { length: 255 }), // Nama Universitas (untuk Studi)

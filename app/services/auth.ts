@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { db } from "@/database/drizzle"; 
-import { users } from "@/database/schema"; 
+import { db } from "@/database/drizzle";
+import { users } from "@/database/schema";
 import { eq } from "drizzle-orm";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
@@ -20,7 +20,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           .from(users)
           .where(eq(users.email, profile.email))
           .limit(1);
-  
+
         if (existingUser.length > 0) {
           return true;
         } else {
@@ -34,7 +34,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
       return false;
     },
-  
+
     //Tambahan: Inject role ke token
     async jwt({ token, user }) {
       if (user?.email) {
@@ -43,15 +43,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           .from(users)
           .where(eq(users.email, user.email))
           .limit(1);
-  
-        // console.log("EXISTING USER:", existingUser);
+
         if (existingUser.length > 0) {
           token.role = existingUser[0].role;
+          console.log("Role added to token: ", token.role);  
         }
       }
       return token;
-    },  
-  
+    },
+
     //Inject token.role ke session
     async session({ session, token }) {
       if (session.user) {
@@ -59,20 +59,20 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
       return session;
     },
-    
+
     async redirect({ baseUrl, url }) {
       if (url.includes("/onboarding")) {
         return `${baseUrl}/onboarding${url.split("/onboarding")[1]}`;
       }
-    
-        
+
+
       return `${baseUrl}/alumni`;
     }
   },
-  
+
   pages: {
-    signIn: "/auth/sign-in",
+    signIn: "/sign-in",
   },
 
-  
+
 });

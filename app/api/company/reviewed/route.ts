@@ -54,7 +54,7 @@ export async function POST(request: Request) {
       .where(eq(reviews.companyId, companyId));
 
     if (result.length === 0) {
-      return NextResponse.json({ message: "No reviews found for this company" }, { status: 404 });
+      return NextResponse.json(result, { status: 404 });
     }
 
     return NextResponse.json(result, { status: 200 });

@@ -34,14 +34,8 @@ export async function GET() {
     .groupBy(alumniProfiles.graduationYear)
     .orderBy(alumniProfiles.graduationYear);
 
-    // 7. Statistik berdasarkan fakultas
-    const alumniByFaculty = await db.select({
-      faculty: alumniProfiles.faculty,
-      count: count()
-    })
-    .from(alumniProfiles)
-    .groupBy(alumniProfiles.faculty)
-    .orderBy(sql`count DESC`);
+   
+  
 
     // 8. Statistik berdasarkan jurusan/prodi
     const alumniByMajor = await db.select({
@@ -78,7 +72,6 @@ export async function GET() {
       totalReviews: totalReviews[0].count,
       averageRating: avgRating[0].average || 0,
       alumniByYear,
-      alumniByFaculty,
       alumniByMajor,
       jobStatusStats,
       jobWaitTimeStats

@@ -64,6 +64,20 @@
       "when": 1745762760458,
       "tag": "0008_amused_captain_cross",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1746289259867,
+      "tag": "0009_adorable_scarlet_spider",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1746292417130,
+      "tag": "0010_material_mephistopheles",
+      "breakpoints": true
     }
   ]
 }

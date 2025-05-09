@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { Suspense, useState, useEffect } from "react";
@@ -20,7 +21,7 @@ const InputField = ({ label, type, value, placeholder, onChange }) => (
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="border p-2 mb-4 w-full rounded-md bg-gray-200"
+      className="border p-2 mb-4 w-full rounded-md bg-white text-black"
     />
   </div>
 );
@@ -31,7 +32,7 @@ const SelectField = ({ label, value, options, onChange }) => (
     <select
       value={value}
       onChange={onChange}
-      className="border p-2 mb-4 w-full rounded-md bg-gray-200"
+      className="border p-2 mb-4 w-full rounded-md bg-white text-black"
     >
       <option value="" disabled>
         Pilih {label}
@@ -56,15 +57,18 @@ const OnboardingPage = () => {
   const [formData, setFormData] = useState<any>(userData);
   const [role, setRole] = useState<string>("");
 
+  //Cek apakah sudah punya akun(authenticated) dan redirect ke halaman sesuai role
   useEffect(() => {
-    if (status === "authenticated") {
-      // Redirect user if role is set correctly
-      if (session?.user?.role === "ALUMNI") {
-        router.push("/alumni");
-      } else if (session?.user?.role === "COMPANY") {
-        router.push("/company");
-      }
-    }
+    console.log("Session data:", session);
+    console.log('Status:', status);
+    // if (status === "authenticated") {
+    //   // Redirect user if role is set correctly
+    //   if (session?.user?.role === "ALUMNI") {
+    //     router.push("/alumni");
+    //   } else if (session?.user?.role === "COMPANY") {
+    //     router.push("/company");
+    //   }
+    // }
   }, [status, session, router]);
 
   const handleInputChange = (field: string, value: any) => {

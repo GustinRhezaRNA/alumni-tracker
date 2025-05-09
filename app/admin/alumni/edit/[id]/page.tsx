@@ -15,7 +15,6 @@ const UpdateAlumniPage = () => {
     nim: '',
     phone: '',
     address: '',
-    faculty: '',
     major: '',
     jobStatus: '',
     currentCompany: '',

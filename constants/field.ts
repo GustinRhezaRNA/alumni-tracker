@@ -1,7 +1,6 @@
 export const alumniFields = [
   { label: "NIM", name: "nim" },
   { label: "Graduation Year", name: "graduationYear" },
-  { label: "Faculty", name: "faculty" },
   { label: "Major", name: "major" },
   { label: "Phone", name: "phone" },
   { label: "Address", name: "address" },

@@ -8,9 +8,6 @@ import { Card } from '@/components/ui/card';
 import { Star } from 'lucide-react';
 
 
-
-
-
 const CompanyReviewsPage = () => {
   const { data: session } = useSession();
   const [reviews, setReviews] = useState<any[]>([]);
@@ -32,6 +29,7 @@ const CompanyReviewsPage = () => {
           }),
         });
         const data = await response.json();
+        console.log('Fetched reviews:', data); // Log the fetched reviews
         setReviews(data);
       } catch (error) {
         console.error('Error fetching reviews:', error);
@@ -58,7 +56,7 @@ const CompanyReviewsPage = () => {
           <p className="text-center">Loading reviews...</p>
         ) : (
           reviews.length === 0 ? (
-            <p className="text-center">No reviews found for your company.</p>
+            <p className="text-center">No reviews found from your company.</p>
           ) : (
             reviews.map((review) => (
               <div key={review.id} className="mb-4 p-4 bg-white rounded-lg shadow-md border">

@@ -9,7 +9,6 @@ interface Alumni {
     id: string;
     nim: string;
     graduationYear: number;
-    faculty: string;
     major: string;
     jobStatus: string;
     currentCompany: string;
