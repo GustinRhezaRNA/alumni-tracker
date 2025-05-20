@@ -96,7 +96,8 @@ const RatingForm: React.FC<RatingFormProps> = ({ alumniId, onSubmitSuccess }) =>
             >
                 <IoClose size={40} />
             </button>
-            <h1 className="text-2xl font-semibold text-center mb-6 text-black">Alumni Rating Form</h1>
+            <h1 className="text-2xl font-semibold text-center  text-black">Alumni Rating Form</h1>
+            <h5 className="text-center text-gray-600">Isi nilai dengan angka skala 1 sampai 5</h5>
             {/* Hard Skills */}
             <div className="mb-6">
                 <h2 className="text-xl font-semibold mb-2 text-black">Hard Skills</h2>

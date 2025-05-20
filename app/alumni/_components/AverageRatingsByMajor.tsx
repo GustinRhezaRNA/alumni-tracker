@@ -49,29 +49,49 @@ const AverageRatingsByMajor: React.FC = () => {
       {
         label: "Rata-Rata Rating",
         data: averageRatings.map((item) => item.averageRating),
-        backgroundColor: "rgba(54, 162, 235, 0.8)", // Warna bar
+        backgroundColor: "rgba(54, 162, 235, 0.8)",
+        borderRadius: 4,
+        barThickness: 20,
       },
     ],
   };
 
   const chartOptions = {
+    indexAxis: "y" as const, // Ini yang membuat batang jadi horizontal
     responsive: true,
     plugins: {
       title: {
         display: true,
         text: "Rata-Rata Rating Per Jurusan",
+        font: {
+          size: 18,
+        },
       },
+      legend: {
+        display: false,
+      },
+      tooltip: {
+  callbacks: {
+    label: function (context: any) {
+      const value = context.raw;
+      return typeof value === "number"
+        ? `Rating: ${value.toFixed(2)}`
+        : `Rating: ${value}`;
+    },
+  },
+},
+
     },
     scales: {
-      y: {
+      x: {
         beginAtZero: true,
-        max: 5, // Asumsi skala rating maksimum adalah 5
+        max: 5,
         title: {
           display: true,
           text: "Rata-Rata Rating",
         },
       },
-      x: {
+      y: {
         title: {
           display: true,
           text: "Jurusan",
@@ -89,8 +109,8 @@ const AverageRatingsByMajor: React.FC = () => {
   }
 
   return (
-    <div>
-      <Bar data={chartData} options={chartOptions} />
+    <div className="w-full h-[400px]"> 
+      <Bar data={chartData} options={{ ...chartOptions, maintainAspectRatio: false }} />
     </div>
   );
 };

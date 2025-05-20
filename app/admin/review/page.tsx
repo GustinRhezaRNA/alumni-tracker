@@ -107,7 +107,7 @@ const ReviewsPage = () => {
     <div className="flex-1 p-8">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Review Data</h2>
-        <Button onClick={handleAddReview} className="bg-green-500 hover:bg-green-600 text-white">Add Review</Button>
+        <Button onClick={handleAddReview} className="bg-green-500 hover:bg-green-600 text-white">Fill Tracer</Button>
       </div>
 
       {loading ? (
