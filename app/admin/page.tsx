@@ -44,6 +44,7 @@ type StatisticsData = {
   alumniByMajor: { major: string; count: number }[];
   jobStatusStats: { jobStatus: string; count: number }[];
   jobWaitTimeStats: { jobWaitTime: string; count: number }[];
+  skillsByMajor: { major: string; hardSkillsAvg: number; softSkillsAvg: number; productivityAvg: number }[];
 };
 
 const StatisticsPage = () => {
@@ -115,27 +116,8 @@ const StatisticsPage = () => {
     }],
   };
 
-  // const alumniByFacultyData = {
-  //   labels: statistics.alumniByFaculty.map(item => item.faculty),
-  //   datasets: [{
-  //     data: statistics.alumniByFaculty.map(item => item.count),
-  //     backgroundColor: [
-  //       'rgba(255, 99, 132, 0.6)',
-  //       'rgba(54, 162, 235, 0.6)',
-  //       'rgba(255, 206, 86, 0.6)',
-  //       'rgba(75, 192, 192, 0.6)',
-  //       'rgba(153, 102, 255, 0.6)',
-  //     ],
-  //     borderColor: [
-  //       'rgba(255, 99, 132, 1)',
-  //       'rgba(54, 162, 235, 1)',
-  //       'rgba(255, 206, 86, 1)',
-  //       'rgba(75, 192, 192, 1)',
-  //       'rgba(153, 102, 255, 1)',
-  //     ],
-  //     borderWidth: 1,
-  //   }],
-  // };
+
+  console.log(statistics);
 
   const jobStatusData = {
     labels: statistics.jobStatusStats.map(item => item.jobStatus),
@@ -209,9 +191,10 @@ const StatisticsPage = () => {
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Alumni by Year Chart */}
         <Card>
           <CardHeader>
-            <CardTitle>Alumni by Graduation Year</CardTitle>
+            <CardTitle>Alumni by Year</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -231,22 +214,77 @@ const StatisticsPage = () => {
           </CardContent>
         </Card>
 
-        {/* <Card>
-          <CardHeader>
-            <CardTitle>Alumni by Faculty</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <PieChart
-                data={alumniByFacultyData}
-                options={{
-                  responsive: true,
-                  maintainAspectRatio: false,
-                }}
-              />
-            </div>
-          </CardContent>
-        </Card> */}
+
+        {statistics?.skillsByMajor && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Average Scores by Major</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Bar Chart */}
+                <div className="h-[300px]">
+                  <BarChart
+                    data={{
+                      labels: statistics.skillsByMajor.map((item) => item.major),
+                      datasets: [
+                        {
+                          label: 'Hard Skill',
+                          data: statistics.skillsByMajor.map((item) => item.hardSkillsAvg),
+                          backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        },
+                        {
+                          label: 'Soft Skill',
+                          data: statistics.skillsByMajor.map((item) => item.softSkillsAvg),
+                          backgroundColor: 'rgba(255, 206, 86, 0.6)',
+                        },
+                        {
+                          label: 'Produktivitas',
+                          data: statistics.skillsByMajor.map((item) => item.productivityAvg),
+                          backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      scales: {
+                        y: {
+                          beginAtZero: true,
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                {/* Table */}
+                <div>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Major</TableHead>
+                        <TableHead className="text-right">Hard Skill</TableHead>
+                        <TableHead className="text-right">Soft Skill</TableHead>
+                        <TableHead className="text-right">Produktivitas</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {statistics.skillsByMajor.map((item, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{item.major}</TableCell>
+                          <TableCell className="text-right">{item.hardSkillsAvg.toFixed(1)}</TableCell>
+                          <TableCell className="text-right">{item.softSkillsAvg.toFixed(1)}</TableCell>
+                          <TableCell className="text-right">{item.productivityAvg.toFixed(1)}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
       </div>
 
       {/* Job Status Section */}
