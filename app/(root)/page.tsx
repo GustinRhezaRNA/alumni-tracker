@@ -43,6 +43,7 @@ const Home = () => {
           <p className="text-white my-4 text-2xl">
           Alumni Tracker is an alumni tracking system that helps institutions monitor graduates' careers,
           strengthen relationships with alumni, and provide data for educational development and accreditation.
+            Alumni Tracker is a platform designed to connect alumni with their community and new opportunities. With an integrated system, we simplify alumni data tracking, support collaboration, and provide the latest updates on alumni achievements and contributions in various fields.
           </p>
           <div className="flex gap-40 justify-center py-12">
             <div className="text-center">
@@ -91,6 +92,19 @@ const Home = () => {
 </div>
 </div>
 
+        <div id='cta' className="grid grid-cols-4 grid-rows-5 gap-4 p-4 h-screen justify-center py-12 bg-[#001E80] bg-cover bg-center px-6 md:px-20 lg:px-48">
+          <div className="bg-[url('/assets/bgbox1.png')] bg-cover bg-center col-span-1 row-span-2  text-white flex items-center justify-center rounded-xl"></div>
+          <div className="bg-[url('/assets/bgbox2.png')]  bg-cover bg-center col-span-1 row-span-1 bg-gray-700 text-white flex items-center justify-center rounded-xl"></div>
+          <div className="bg-[url('/assets/bgbox3.png')]  bg-cover bg-center col-span-1 row-span-1  text-black flex items-center justify-center rounded-xl"></div>
+          <div className="bg-[url('/assets/bgbox4.png')]  bg-cover bg-center col-span-1 row-span-3 bg-black text-white flex items-center justify-center rounded-xl"></div>
+          <div className="col-span-2 row-span-2 bg-bl-400 bg-black text-white flex items-center  rounded-xl p-4 text-3xl justify-end">Reconnect with alumni and build a stronger network. Discover success stories, career opportunities, and new inspiration here!
+
+
+            <Button className="w-44 h-12 bg-[#FFD700] text-black buttonShadow ">Get Started</Button>
+          </div>
+          <div className="bg-[url('/assets/bgbox6.png')]  bg-cover bg-center col-span-1 row-span-2 bg-gray-900 text-white flex items-center justify-center rounded-xl "></div>
+          <div className="bg-[url('/assets/bgbox7.png')] bg-cover bg-center  col-span-3 row-span-1 bg-yel-900 text-black flex items-center justify-center rounded-xl  text-2xl"><p className='text-right'>Together we grow, together we thrive. Start your journey of building meaningful alumni connections today!</p></div>
+        </div>
         <div className=""></div>
       </section>
       <footer className="text-white text-xs md:text-sm text-center py-3 w-full bg-black">
