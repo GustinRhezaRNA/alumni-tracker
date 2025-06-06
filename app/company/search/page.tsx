@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import RatingForm from "@/components/RatingForm"; 
+import RatingForm from "@/components/RatingForm";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const AlumniPage = () => {
@@ -28,7 +28,13 @@ const AlumniPage = () => {
 
     const getAlumniData = async () => {
       try {
-        const response = await fetch('/api/search');
+        const response = await fetch('/api/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userEmail: session.user?.email }), // Send userEmail from session
+        });
         const data = await response.json();
         setAlumniData(data);
         setLoading(false);
@@ -87,12 +93,20 @@ const AlumniPage = () => {
                 Major: {alumni.alumni.major}
               </p>
             </div>
-            <Button onClick={() => handleAddReview(alumni.alumni.id)} className="bg-green-500 text-white px-4 py-2 rounded-lg">
-              Fill Tracer
+            <Button
+              onClick={() => handleAddReview(alumni.alumni.id)}
+              className={`px-4 py-2 rounded-lg ${
+                alumni.hasReview
+                  ? "bg-gray-400 text-white cursor-not-allowed"
+                  : "bg-green-500 text-white"
+              }`}
+              disabled={!!alumni.hasReview} // Disable if hasReview is non-null
+            >
+              {alumni.hasReview ? "Reviewed" : "Fill Tracer"}
             </Button>
           </div>
         ))}
-  
+
         {filteredAlumni.length === 0 && (
           <p className="text-gray-500 text-center">No alumni found.</p>
         )}
@@ -100,12 +114,34 @@ const AlumniPage = () => {
 
       {/* Modal Review */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent  className="md:min-w-[900px] overflow-y-auto max-h-[80vh] p-2">
-          <div className="">
-          <DialogHeader>
-            <DialogTitle>Review for Alumni</DialogTitle>
-          </DialogHeader>
-          <RatingForm alumniId={selectedAlumniId} onSubmitSuccess={() => setShowModal(false)} />
+        <DialogContent className="md:min-w-[900px] overflow-y-auto max-h-[80vh] p-2">
+          <div>
+            <DialogHeader>
+              <DialogTitle>Review for Alumni</DialogTitle>
+            </DialogHeader>
+            <RatingForm
+              alumniId={selectedAlumniId}
+              onSubmitSuccess={() => {
+                setShowModal(false);
+                // Refetch alumni data to update review status
+                const getAlumniData = async () => {
+                  try {
+                    const response = await fetch('/api/company/search', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({ userEmail: session.user.email }),
+                    });
+                    const data = await response.json();
+                    setAlumniData(data);
+                  } catch (error) {
+                    console.error("Error refetching alumni:", error);
+                  }
+                };
+                getAlumniData();
+              }}
+            />
           </div>
         </DialogContent>
       </Dialog>
