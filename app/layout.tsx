@@ -1,7 +1,7 @@
 import { Montserrat, Poppins } from 'next/font/google';
 import './globals.css';
 import { Metadata } from 'next';
-
+import { Toaster } from "sonner";
 import SessionWrapper from '@/components/SessionWrapper';
 
 
@@ -26,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${montserrat.variable} ${poppins.variable} font-sans bg-[#001E80] text-white`}>
       <SessionWrapper>{children}</SessionWrapper>
+      <Toaster position="top-center" richColors />
       </body>
     </html>
   );

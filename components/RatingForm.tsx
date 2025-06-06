@@ -4,6 +4,14 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { HARD_SKILLS, SOFT_SKILLS, PRODUCTIVITY } from "@/constants/review";
 import { IoClose } from "react-icons/io5";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import { Button } from "./ui/button";
+import { HelpCircle } from "lucide-react"
+import { toast } from "sonner";
 
 interface RatingFormProps {
     alumniId: string | null;
@@ -36,10 +44,38 @@ const RatingForm: React.FC<RatingFormProps> = ({ alumniId, onSubmitSuccess }) =>
         fetchCompany();
     }, [session]);
 
+    // const submitReview = async () => {
+    //     console.log("Submitting review...", { companyId, alumniId, reviewText, hardSkills, softSkills, productivity });
+    //     try {
+    //         setIsSubmitting(true);
+    //         const response = await fetch("/api/review", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 companyId,
+    //                 alumniId,
+    //                 reviewText,
+    //                 hardSkills,
+    //                 softSkills,
+    //                 productivity
+    //             }),
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error("Gagal mengirim review");
+    //         }
+
+    //         setSubmitted(true);
+    //     } catch (error) {
+    //         console.error("Error submitting review:", error);
+    //     }
+    // };
+
     const submitReview = async () => {
-        console.log("Submitting review...", { companyId, alumniId, reviewText, hardSkills, softSkills, productivity });
+        setIsSubmitting(true);
         try {
-            setIsSubmitting(true);
             const response = await fetch("/api/review", {
                 method: "POST",
                 headers: {
@@ -59,11 +95,16 @@ const RatingForm: React.FC<RatingFormProps> = ({ alumniId, onSubmitSuccess }) =>
                 throw new Error("Gagal mengirim review");
             }
 
-            setSubmitted(true);
+            toast.success("Review berhasil dikirim!");
+            onSubmitSuccess(); // Tutup modal
         } catch (error) {
             console.error("Error submitting review:", error);
+            toast.error("Gagal mengirim review. Coba lagi nanti.");
+        } finally {
+            setIsSubmitting(false);
         }
     };
+
 
     const renderSelect = (
         skillKey: string,
@@ -97,7 +138,37 @@ const RatingForm: React.FC<RatingFormProps> = ({ alumniId, onSubmitSuccess }) =>
                 <IoClose size={40} />
             </button>
             <h1 className="text-2xl font-semibold text-center  text-black">Alumni Rating Form</h1>
-            <h5 className="text-center text-gray-600">Isi nilai dengan angka skala 1 sampai 5</h5>
+            <div className="text-center text-gray-600 flex items-center justify-center gap-2">
+                <h5>Isi nilai dengan angka skala 1 sampai 5</h5>
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="w-6 h-6 rounded-full border border-gray-300 p-0"
+                            aria-label="Bantuan"
+                        >
+                            <HelpCircle className="w-4 h-4 text-gray-500" />
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="text-sm max-w-36">
+                        Detail Nilai :
+                        <br />
+                        1: sangat buruk
+                        <br />
+                        2: buruk
+                        <br />
+                        3: cukup
+                        <br />
+                        4: baik
+                        <br />
+                        5: sangat baik
+                    </PopoverContent>
+                </Popover>
+            </div>
+
+
+
             {/* Hard Skills */}
             <div className="mb-6">
                 <h2 className="text-xl font-semibold mb-2 text-black">Hard Skills</h2>
@@ -151,9 +222,9 @@ const RatingForm: React.FC<RatingFormProps> = ({ alumniId, onSubmitSuccess }) =>
                 <button
                     onClick={submitReview}
                     className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-xl mt-6"
-                    disabled={isSubmitting || submitted}
+                    disabled={isSubmitting}
                 >
-                    {submitted ? "Review Terkirim" : isSubmitting ? "Mengirim..." : "Kirim Review"}
+                    {isSubmitting ? "Mengirim..." : "Kirim Review"}
                 </button>
             </div>
         </div>
