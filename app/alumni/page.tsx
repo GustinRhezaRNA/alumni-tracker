@@ -221,14 +221,14 @@ const Page = () => {
                 </div>
             </Card>
 
-            <div className="flex gap-4 w-full min-w-3/4 max-w-3xl">
+            {/* <div className="flex gap-4 w-full min-w-3/4 max-w-3xl">
                 <Card className='w-full p-4'>
                     <h2 className='text-2xl font-semibold text-[#333]'>Average Ratings by Major</h2>
                     <p className='text-slate-500'>This section shows the average ratings of alumni based on their major.</p>
                     <AverageRatingsByMajor />
                 </Card>
                
-            </div>
+            </div> */}
         </div>
     );
 }
