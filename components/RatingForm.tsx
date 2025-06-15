@@ -44,35 +44,6 @@ const RatingForm: React.FC<RatingFormProps> = ({ alumniId, onSubmitSuccess }) =>
         fetchCompany();
     }, [session]);
 
-    // const submitReview = async () => {
-    //     console.log("Submitting review...", { companyId, alumniId, reviewText, hardSkills, softSkills, productivity });
-    //     try {
-    //         setIsSubmitting(true);
-    //         const response = await fetch("/api/review", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({
-    //                 companyId,
-    //                 alumniId,
-    //                 reviewText,
-    //                 hardSkills,
-    //                 softSkills,
-    //                 productivity
-    //             }),
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error("Gagal mengirim review");
-    //         }
-
-    //         setSubmitted(true);
-    //     } catch (error) {
-    //         console.error("Error submitting review:", error);
-    //     }
-    // };
-
     const submitReview = async () => {
         setIsSubmitting(true);
         try {

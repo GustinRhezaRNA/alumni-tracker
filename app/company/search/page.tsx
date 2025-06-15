@@ -126,7 +126,7 @@ const AlumniPage = () => {
                 // Refetch alumni data to update review status
                 const getAlumniData = async () => {
                   try {
-                    const response = await fetch('/api/company/search', {
+                    const response = await fetch('/api/search', {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json',
