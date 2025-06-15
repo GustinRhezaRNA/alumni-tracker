@@ -68,18 +68,19 @@ const CompanyDetails = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const response = await fetch('/api/alumniProfile', {
+        const response = await fetch('/api/companyProfile', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: session?.user?.email, ...formData }),
+            body: JSON.stringify({ userEmail: session?.user?.email, ...formData }),
         });
 
         const data = await response.json();
 
         if (response.ok) {
             alert('Profile updated successfully!');
+            router.push('/company');  // Redirect to company page after successful update
         } else {
             alert('Failed to update profile: ' + data.message);
         }
